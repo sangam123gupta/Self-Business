@@ -4,6 +4,7 @@ export default function Create() {
     const [form_value, setFormValue] = useState({
         name: '',
         description: '',
+        file:'',
         size: 0
     })
 
@@ -12,6 +13,7 @@ export default function Create() {
         if (!form_value.name || !form_value.size || !form_value.description) {
             alert('all fields are required');
         } else {
+
             fetch(`http://localhost:5001/create`, {
                 method: "POST",
                 headers: {
@@ -35,13 +37,11 @@ export default function Create() {
     }
     const hanle_change = (name) => (event) => {
         console.log("name", name, "event", event, "event")
+        console.log("file -->",name,event);
         if (name == 'size')
             setFormValue({ ...form_value, [name]: + event.target.value })
         else
             setFormValue({ ...form_value, [name]: event.target.value })
-
-
-
     }
 
     return (
@@ -66,6 +66,7 @@ export default function Create() {
                         placeholder="Description"
                         onChange={hanle_change('description')}
                     />
+                    <input type='file' onChange={hanle_change('file')} />
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

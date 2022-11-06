@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Link,useLocation } from "react-router-dom";
-import {signin } from "../auth_functions/index"
+import { Link, useLocation } from "react-router-dom";
+import { signin } from "../auth_functions/index";
+import { useNavigate } from 'react-router-dom';
+
 export default function Login() {
     const [state, setState] = useState({
         password: String,
         email: String
     })
-    const loaction=useLocation();
+  const Navigate = useNavigate()
+    const loaction = useLocation();
 
-    console.log("location here  ",loaction.pathname)
+    console.log("location here  ", loaction.pathname)
 
 
     function sign_in() {
-
-        signin(state).then((sign_data)=>{
-            console.log("successfully signup",sign_data);
-            if(window!=undefined){
-                localStorage.setItem("jwt",sign_data.token)
+        const check = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+        if (!check.test(state.email)) {
+            alert("email not valid");
+            return
+        }
+        return signin(state).then((sign_data) => {
+            console.log("successfully signup", sign_data);
+            if (window != undefined) {
+                localStorage.setItem("jwt", sign_data.token)
+                Navigate('/create')
             }
-        }).catch((er)=>{
+        }).catch((er) => {
             console.log("not signup");
         })
 
@@ -70,7 +78,7 @@ export default function Login() {
                         <i className="fab fa-twitter"></i>
                     </button>
 
-                   
+
 
                 </div>
             </form>

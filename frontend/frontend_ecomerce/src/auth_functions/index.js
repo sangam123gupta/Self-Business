@@ -58,7 +58,9 @@ export const get_jwt=()=>{
 }
 
 export  const data_geter=async()=>{
-   return await fetch(`http://localhost:5001/list`).then(async(data)=>{
+   return await fetch(`http://localhost:5500/list`,{
+    method:"GET"
+   }).then(async(data)=>{
        return await data.json().then(async(json_data)=>{
            console.log("data is here",json_data ,"data type",typeof (json_data));
          return json_data;

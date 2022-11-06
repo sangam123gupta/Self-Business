@@ -14,10 +14,7 @@ export default function Private_route(props) {
     }
   })
 
-
   return (
-    <div>this is private_route
-      <Component  pro="details" key="waiting"  drt="popup"/>
-    </div>
+    <div><Component /></div>
   )
 }
